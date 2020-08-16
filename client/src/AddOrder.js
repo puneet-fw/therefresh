@@ -1,29 +1,13 @@
 import React from 'react';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import { TextField, MenuItem, Table, TableBody,
+  TableCell, TableHead, TableRow, Button } from '@material-ui/core';
 import Title from './components/Title';
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
   return { id, date, name, shipTo, paymentMethod, amount };
-}
-
-const rows = [
-  createData(0, '16 Mar, 2019', 'Elvis Presley', 'Tupelo, MS', 'VISA ⠀•••• 3719', 312.44),
-  createData(1, '16 Mar, 2019', 'Paul McCartney', 'London, UK', 'VISA ⠀•••• 2574', 866.99),
-  createData(2, '16 Mar, 2019', 'Tom Scholz', 'Boston, MA', 'MC ⠀•••• 1253', 100.81),
-  createData(3, '16 Mar, 2019', 'Michael Jackson', 'Gary, IN', 'AMEX ⠀•••• 2000', 654.39),
-  createData(4, '15 Mar, 2019', 'Bruce Springsteen', 'Long Branch, NJ', 'VISA ⠀•••• 5919', 212.79),
-];
-
-function preventDefault(event) {
-  event.preventDefault();
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -34,8 +18,13 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: '25ch',
+    width: '25ch'
   },
+  button: {
+    marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  }
 }));
 
 export default function AddOrder() {
@@ -44,7 +33,7 @@ export default function AddOrder() {
     <React.Fragment>
       <Title>Add Order</Title>
       <div>
-        <TextField
+        {/*<TextField
           id="standard-full-width"
           label="Label"
           style={{ margin: 8 }}
@@ -55,112 +44,180 @@ export default function AddOrder() {
           InputLabelProps={{
             shrink: true,
           }}
+        />*/}
+        <TextField
+          label="Code"
+          id="code"
+          defaultValue="0000"
+          className={classes.textField}
+          helperText="Unique Code"
+          margin="normal"
+          variant="outlined"
         />
         <TextField
-          label="None"
-          id="margin-none"
-          defaultValue="Default Value"
+          label="Order No."
+          id="order_no"
+          defaultValue="0000"
           className={classes.textField}
-          helperText="Some important text"
-        />
-        <TextField
-          label="Dense"
-          id="margin-dense"
-          defaultValue="Default Value"
-          className={classes.textField}
-          helperText="Some important text"
-          margin="dense"
-        />
-        <TextField
-          label="Normal"
-          id="margin-normal"
-          defaultValue="Default Value"
-          className={classes.textField}
-          helperText="Some important text"
           margin="normal"
         />
-      </div>
-      <div>
         <TextField
-          id="filled-full-width"
-          label="Label"
-          style={{ margin: 8 }}
-          placeholder="Placeholder"
-          helperText="Full width!"
-          fullWidth
-          margin="normal"
+          label="Order Confirmed On"
+          id="order_confirmed_date"
+          type="date"
+          defaultValue="2020-08-17"
+          className={classes.textField}
           InputLabelProps={{
             shrink: true,
           }}
-          variant="filled"
-        />
-        <TextField
-          label="None"
-          id="filled-margin-none"
-          defaultValue="Default Value"
-          className={classes.textField}
-          helperText="Some important text"
-          variant="filled"
-        />
-        <TextField
-          label="Dense"
-          id="filled-margin-dense"
-          defaultValue="Default Value"
-          className={classes.textField}
-          helperText="Some important text"
-          margin="dense"
-          variant="filled"
-        />
-        <TextField
-          label="Normal"
-          id="filled-margin-normal"
-          defaultValue="Default Value"
-          className={classes.textField}
-          helperText="Some important text"
           margin="normal"
-          variant="filled"
         />
+        <TextField
+          id="season"
+          label="Season"
+          select
+          className={classes.textField}
+          margin="normal"
+        >
+          <MenuItem value="winter">Winter</MenuItem>
+          <MenuItem value="spring">Spring</MenuItem>
+          <MenuItem value="summer">Summer</MenuItem>
+          <MenuItem value="fall">Fall</MenuItem>
+        </TextField>
       </div>
       <div>
         <TextField
-          id="outlined-full-width"
-          label="Label"
-          style={{ margin: 8 }}
-          placeholder="Placeholder"
-          helperText="Full width!"
-          fullWidth
+          id="buyer_id"
+          label="Buyer"
+          select
+          className={classes.textField}
           margin="normal"
+        >
+          <MenuItem value="1234">1234</MenuItem>
+          <MenuItem value="2345">2345</MenuItem>
+        </TextField>
+        <TextField
+          id="buyer_name"
+          label="Buyer Name"
+          select
+          className={classes.textField}
+          margin="normal"
+        >
+          <MenuItem value="buyer_one">Buyer One</MenuItem>
+          <MenuItem value="buyer_two">Buyer Two</MenuItem>
+        </TextField>
+        <TextField
+          id="promo"
+          label="Event/Promo"
+          select
+          className={classes.textField}
+          margin="normal"
+        >
+          <MenuItem value="promo_1">Promo One</MenuItem>
+          <MenuItem value="promo_2">Promo Two</MenuItem>
+        </TextField>
+        <TextField
+          id="buyer_season"
+          label="Buyer Season"
+          select
+          className={classes.textField}
+          margin="normal"
+        >
+          <MenuItem value="winter">Winter</MenuItem>
+          <MenuItem value="spring">Spring</MenuItem>
+          <MenuItem value="summer">Summer</MenuItem>
+          <MenuItem value="fall">Fall</MenuItem>
+        </TextField>
+      </div>
+      <div>
+        <TextField
+          id="supplier_id"
+          label="Supplier"
+          select
+          className={classes.textField}
+          margin="normal"
+        >
+          <MenuItem value="1234">Supplier One</MenuItem>
+          <MenuItem value="2345">Supplier Two</MenuItem>
+        </TextField>
+        <TextField
+          label="Buyer HO Date"
+          id="buyer_ho_date"
+          type="date"
+          defaultValue="2020-08-17"
+          className={classes.textField}
           InputLabelProps={{
             shrink: true,
           }}
-          variant="outlined"
-        />
-        <TextField
-          label="None"
-          id="outlined-margin-none"
-          defaultValue="Default Value"
-          className={classes.textField}
-          helperText="Some important text"
-          variant="outlined"
-        />
-        <TextField
-          label="Dense"
-          id="outlined-margin-dense"
-          defaultValue="Default Value"
-          className={classes.textField}
-          helperText="Some important text"
-          margin="dense"
-          variant="outlined"
-        />
-        <TextField
-          label="Normal"
-          id="outlined-margin-normal"
-          defaultValue="Default Value"
-          className={classes.textField}
-          helperText="Some important text"
           margin="normal"
-          variant="outlined"
         />
+        <TextField
+          label="Supplier HO Date"
+          id="supplier_ho_date"
+          type="date"
+          defaultValue="2020-08-17"
+          className={classes.textField}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          margin="normal"
+        />
+        <TextField
+          id="producton_town"
+          label="Production Town"
+          select
+          className={classes.textField}
+          margin="normal"
+        >
+          <MenuItem value="delhi">Delhi</MenuItem>
+          <MenuItem value="mumbai">Mumbai</MenuItem>
+        </TextField>
+      </div>
+      <div>
+        <TextField
+          label="Payment Mode"
+          id="payment_mode"
+          className={classes.textField}
+          margin="normal"
+        />
+        <TextField
+          id="currency"
+          label="Currency"
+          select
+          className={classes.textField}
+          margin="normal"
+        >
+          <MenuItem value="euro">Euro</MenuItem>
+          <MenuItem value="usd">USD</MenuItem>
+          <MenuItem value="inr">INR</MenuItem>
+        </TextField>
+        <TextField
+          id="terms"
+          label="Terms"
+          select
+          className={classes.textField}
+          margin="normal"
+        >
+          <MenuItem value="1">1</MenuItem>
+          <MenuItem value="2">2</MenuItem>
+          <MenuItem value="3">3</MenuItem>
+        </TextField>
+        <TextField
+          id="mode"
+          label="Mode"
+          select
+          className={classes.textField}
+          margin="normal"
+        >
+          <MenuItem value="1">1</MenuItem>
+          <MenuItem value="2">2</MenuItem>
+          <MenuItem value="3">3</MenuItem>
+        </TextField>
+      </div>
+      <div>
+        <Button variant="contained" color="primary" className={classes.button}>
+          Generate Order ID
+        </Button>
       </div>
     </React.Fragment>
   );

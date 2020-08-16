@@ -20,16 +20,15 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { MainListItems } from './listItems';
 import AddOrder from './AddOrder';
-import Orders from './Orders';
+import Home from './Home';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" href="https://www.therefresh.in">
+        www.therefresh.in
       </Link>{' '}
-      {new Date().getFullYear()}
       {'.'}
     </Typography>
   );
@@ -119,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-  const [view, setView] = React.useState('orders');
+  const [view, setView] = React.useState('home');
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -127,14 +126,6 @@ export default function Dashboard() {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
-  const getViewComponent = (v) => {
-    if (v === 'addOrder') {
-      return AddOrder;
-    } else {
-      return Orders;
-    }
-  }
 
   return (
     <div className={classes.root}>
@@ -151,7 +142,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+            Welcome User
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -185,7 +176,7 @@ export default function Dashboard() {
               <Paper className={classes.paper}>
                 {
                   {
-                    orders: <Orders />,
+                    home: <Home />,
                     addOrder: <AddOrder />
                   }[view]
                 }

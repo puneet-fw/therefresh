@@ -36,17 +36,17 @@ export const MainListItems = (props) => {
 
   return (
     <div>
-      <ListItem button onClick={() => {props.onListItemClick('orders')}}>
+      <ListItem button onClick={() => {props.onListItemClick('home')}}>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
-        <ListItemText primary="Orders" />
+        <ListItemText primary="Home" />
       </ListItem>
       <ListItem button onClick={handleClick}>
         <ListItemIcon>
           <ShoppingCartIcon />
         </ListItemIcon>
-        <ListItemText primary="AddOrder" />
+        <ListItemText primary="Orders" />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
@@ -55,7 +55,13 @@ export const MainListItems = (props) => {
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
-            <ListItemText primary="Starred" />
+            <ListItemText primary="Add New Order" />
+          </ListItem>
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="Edit Existing Order" />
           </ListItem>
         </List>
       </Collapse>
