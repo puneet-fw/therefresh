@@ -50,15 +50,21 @@ export const MainListItems = (props) => {
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button onClick={() => {props.onListItemClick('addOrder')}} className={classes.nested}>
-              <ListItemIcon>
-                <StarBorder />
-              </ListItemIcon>
-              <ListItemText primary="Starred" />
-            </ListItem>
-          </List>
-        </Collapse>
+        <List component="div" disablePadding>
+          <ListItem button onClick={() => {props.onListItemClick('addOrder')}} className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="Starred" />
+          </ListItem>
+        </List>
+      </Collapse>
+      <ListItem button component={Link} to='/login'>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="Logout" />
+      </ListItem>
     </div>
   );
 };
