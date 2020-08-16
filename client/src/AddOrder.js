@@ -1,8 +1,9 @@
-import React from 'react';
-import Link from '@material-ui/core/Link';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, MenuItem, Table, TableBody,
-  TableCell, TableHead, TableRow, Button } from '@material-ui/core';
+  TableCell, TableHead, TableRow, Button, Link } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import SaveIcon from '@material-ui/icons/Save';
 import Title from './components/Title';
 
 // Generate Order Data
@@ -20,6 +21,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     width: '25ch'
   },
+  gridTextField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: '15ch'
+  },
   button: {
     marginTop: theme.spacing(2),
     marginLeft: theme.spacing(1),
@@ -27,8 +33,72 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+function ItemGridForm(props) {
+  const classes = useStyles();
+  return (
+    <div>
+      <TextField
+        label="Buyer Style No."
+        id="buyer_style_no"
+        defaultValue="0000"
+        className={classes.gridTextField}
+        margin="normal"
+      />
+      <TextField
+        label="Supplier Style"
+        id="supplier_style"
+        defaultValue="0000"
+        className={classes.gridTextField}
+        margin="normal"
+      />
+      <TextField
+        label="Short"
+        id="short"
+        className={classes.gridTextField}
+        margin="normal"
+      />
+      <TextField
+        label="Description"
+        id="description"
+        className={classes.gridTextField}
+        margin="normal"
+      />
+      <Button
+        variant="contained"
+        color="secondary"
+        size="small"
+        className={classes.button}
+        startIcon={<DeleteIcon />}
+        onClick={props.deleteItem}
+      >
+        Delete
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        size="small"
+        className={classes.button}
+        startIcon={<SaveIcon />}
+        onClick={props.saveItem}
+      >
+        Save
+      </Button>
+    </div>
+  );
+}
+
 export default function AddOrder() {
   const classes = useStyles();
+  const [items, setItems] = useState([]);
+  function saveItem() {
+    setItems(items.concat(1));
+  }
+  function deleteItem() {
+    setItems(items.slice(0, items.length - 1))
+  }
+  function saveOrder() {
+    setItems(items.concat(1));
+  }
   return (
     <React.Fragment>
       <Title>Add Order</Title>
@@ -215,9 +285,12 @@ export default function AddOrder() {
         </TextField>
       </div>
       <div>
-        <Button variant="contained" color="primary" className={classes.button}>
+        <Button variant="contained" color="primary" className={classes.button} onClick={saveOrder}>
           Generate Order ID
         </Button>
+      </div>
+      <div>
+        {items.map(() => (<ItemGridForm saveItem={saveItem} deleteItem={deleteItem}/>))}
       </div>
     </React.Fragment>
   );
