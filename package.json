@@ -13,7 +13,8 @@
   "author": "Archil",
   "license": "UNLICENSED",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-basic-auth": "^1.2.0"
   },
   "devDependencies": {
     "concurrently": "^5.3.0"
