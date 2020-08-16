@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Link, Route} from 'react-router-dom';
+import { BrowserRouter, Link, Route, Redirect} from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import Home from './Home';
 import Login from './Login';
 import Admin from './Admin';
-import { AuthContext } from "./context/auth";
+import { AuthContext, useAuth } from "./context/auth";
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { authTokens } = useAuth();
+  return(
+    <Route
+      {...rest}
+      render={(props) => (
+        authTokens ? (<Component {...props} />) : (<Redirect to="/login" />)
+      )}
+    />
+  );
+}
 
 function App(props) {
   const existingTokens = JSON.parse(localStorage.getItem("tokens"));
@@ -26,9 +38,8 @@ function App(props) {
               <Link to="/admin">Admin Page</Link>
             </li>
           </ul>
-          <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
-          <PrivateRoute path="/admin" component={Admin} />
+          <PrivateRoute path="/" component={Admin} />
         </div>
       </BrowserRouter>
   </AuthContext.Provider>
