@@ -1,5 +1,5 @@
 const express = require('express');
-const basicAuth = require('express-basic-auth');
+const crypto = require('crypto');
 const cookieParser = require('cookie-parser');
 
 const app = express();
@@ -7,52 +7,52 @@ const port = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(cookieParser());
 
-// A random key for signing the cookie
-app.use(cookieParser('82e4e438a0705fabf61f9854e3b575af'));
-
-const auth = basicAuth({
-  users: {
-    admin: '123',
-    user: '456',
+const users = [
+  {
+    firstName: 'Archil',
+    lastName: 'Kumar',
+    username: 'archil',
+    // Convert this to SHA256 hash for value of `password`
+    password: 'password'
   },
-});
-
-app.get('/authenticate', auth, (req, res) => {
-  const options = {
-    httpOnly: true,
-    signed: true,
-  };
-  console.log(req.auth);
-
-  if (req.auth.user === 'admin') {
-    res.cookie('name', 'admin', options).send({ screen: 'admin' });
-  } else if (req.auth.user === 'user') {
-    res.cookie('name', 'user', options).send({ screen: 'user' });
+  {
+    firstName: 'Puneet',
+    lastName: 'Srivastava',
+    username: 'puneet',
+    password: 'password'
   }
-});
+];
 
-app.get('/read-cookie', (req, res) => {
-  if (req.signedCookies.name === 'admin') {
-    res.send({ screen: 'admin' });
-  } else if (req.signedCookies.name === 'user') {
-    res.send({ screen: 'user' });
+const getHashedPassword = (password) => password;
+
+const authTokens = {};
+
+const generateAuthToken = () => {
+  return crypto.randomBytes(30).toString('hex');
+}
+
+app.post('/authenticate', (req, res) => {
+  const { username, password } = req.body;
+  const hashedPassword = getHashedPassword(password);
+
+  const user = users.find((user) =>
+      username === user.username && hashedPassword === user.password
+  );
+
+  if (user) {
+      const authToken = generateAuthToken();
+
+      // Store authentication token
+      authTokens[authToken] = user;
+
+      const { firstName, lastName } = user;
+
+      // Setting the auth token in cookies
+      res.cookie('AuthToken', authToken).send({firstName, lastName, token: authToken});
   } else {
-    res.send({ screen: 'auth' });
-  }
-});
-
-app.get('/clear-cookie', (req, res) => {
-  res.clearCookie('name').end();
-});
-
-app.get('/get-data', (req, res) => {
-  if (req.signedCookies.name === 'admin') {
-    res.send('This is admin panel');
-  } else if (req.signedCookies.name === 'user') {
-    res.send('This is user data');
-  } else {
-    res.end();
+      res.status(401).send('Wrong Credentials');
   }
 });
 

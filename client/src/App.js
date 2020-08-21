@@ -10,21 +10,22 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) => (
-        true ? (<Component {...props} />) : (<Redirect to="/login" />)
+        authTokens ? (<Component {...props} />) : (<Redirect to="/login" />)
       )}
     />
   );
 }
 
-function App(props) {
+const App = (props) => {
   const rawTokens = localStorage.getItem("tokens");
-  const existingTokens = (rawTokens !== "undefined" ? JSON.parse(rawTokens) : null);
+  const existingTokens = rawTokens !== "undefined" ? JSON.parse(rawTokens) : null;
   const [authTokens, setAuthTokens] = useState(existingTokens);
 
   const setTokens = (data) => {
     localStorage.setItem("tokens", JSON.stringify(data));
     setAuthTokens(data);
   }
+
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <BrowserRouter>
@@ -33,7 +34,7 @@ function App(props) {
           <PrivateRoute exact path='/' component={Dashboard} />
         </div>
       </BrowserRouter>
-  </AuthContext.Provider>
+    </AuthContext.Provider>
   );
 }
 

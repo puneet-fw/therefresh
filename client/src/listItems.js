@@ -14,6 +14,7 @@ import SendIcon from '@material-ui/icons/Send';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
+import { useAuth } from './context/auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 export const MainListItems = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const { setAuthTokens } = useAuth();
 
   const handleClick = () => {
     setOpen(!open);
@@ -65,7 +67,7 @@ export const MainListItems = (props) => {
           </ListItem>
         </List>
       </Collapse>
-      <ListItem button component={Link} to='/login'>
+      <ListItem button onClick={() => {setAuthTokens()}} component={Link} to='/login'>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>

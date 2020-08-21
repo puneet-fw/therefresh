@@ -21,18 +21,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { MainListItems } from './listItems';
 import AddOrder from './AddOrder';
 import Home from './Home';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://www.therefresh.in">
-        www.therefresh.in
-      </Link>{' '}
-      {'.'}
-    </Typography>
-  );
-}
+import Copyright from './components/Copyright';
 
 const drawerWidth = 240;
 
@@ -115,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+export default function Dashboard(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [view, setView] = React.useState('home');
@@ -142,7 +131,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Welcome User
+            Welcome {props.location.state.firstName} {props.location.state.lastName}
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
