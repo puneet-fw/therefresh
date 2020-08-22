@@ -47,20 +47,24 @@ const Login = () => {
 
   function postLogin(e) {
     e.preventDefault();
-    axios.post("/authenticate", {
-      username,
-      password
-    }).then(result => {
-      if (result.status === 200) {
-        setAuthTokens(result.data.token);
-        setFirstName(result.data.firstName);
-        setLastName(result.data.lastName);
-        setLoggedIn(true);
-      }
-    }).catch(error => {
-      setIsError(true);
-      setErrorMessage(error.response.data);
-    });
+    // axios.post("/authenticate", {
+    //   username,
+    //   password
+    // }).then(result => {
+    //   if (result.status === 200) {
+    //     setAuthTokens(result.data.token);
+    //     setFirstName(result.data.firstName);
+    //     setLastName(result.data.lastName);
+    //     setLoggedIn(true);
+    //   }
+    // }).catch(error => {
+    //   setIsError(true);
+    //   setErrorMessage(error.response.data);
+    // });
+    setAuthTokens('abcd');
+    setFirstName('FirstName');
+    setLastName('LastName');
+    setLoggedIn(true);
   }
 
   if (isLoggedIn) {

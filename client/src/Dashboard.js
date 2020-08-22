@@ -18,7 +18,7 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { MainListItems } from './listItems';
+import MenuItems from './MenuItems';
 import AddOrder from './AddOrder';
 import Home from './Home';
 import Copyright from './components/Copyright';
@@ -153,7 +153,7 @@ export default function Dashboard(props) {
           </IconButton>
         </div>
         <Divider />
-        <List><MainListItems onListItemClick={setView}/></List>
+        <List><MenuItems onListItemClick={setView}/></List>
         <Divider />
       </Drawer>
       <main className={classes.content}>

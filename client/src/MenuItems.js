@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const MainListItems = (props) => {
+const MenuItems = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const { setAuthTokens } = useAuth();
@@ -76,3 +76,5 @@ export const MainListItems = (props) => {
     </div>
   );
 };
+
+export default MenuItems;
